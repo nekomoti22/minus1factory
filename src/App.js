@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import PostCreate from './components/PostCreate';
 import Notifications from './components/Notifications';
-import Account from './components/Account'; // アカウント画面のコンポーネント
+import Account from './components/Account';
 import Footer from './components/Footer';
 
 function App() {
