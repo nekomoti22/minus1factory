@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import PostHeader from './PostHeader'; // PostHeaderをインポート
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
-import VideocamIcon from '@mui/icons-material/Videocam';
+// import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+// import VideocamIcon from '@mui/icons-material/Videocam';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import FileUploadUI from './FileUploadUI'; // FileUploadUIをインポート
 
 function PostCreate() {
   const [selectedCategory, setSelectedCategory] = useState('制作物');
   const [postContent, setPostContent] = useState('');
-
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
   };
@@ -46,9 +46,11 @@ function PostCreate() {
           />
           <div className="post-field">
             <div className="media-icons">
-              <InsertPhotoIcon style={{ fontSize: 30 }} />
-              <VideocamIcon style={{ fontSize: 30 }} />
+              {/* <InsertPhotoIcon style={{ fontSize: 30 }} />
+              <VideocamIcon style={{ fontSize: 30 }} /> */}
             </div>
+            {/* ファイルアップロードUIを追加 */}
+            <FileUploadUI />
             <div className="input-field">
               <GitHubIcon style={{ fontSize: 30 }} />
               <input type="text" placeholder="https://github.com..." />
