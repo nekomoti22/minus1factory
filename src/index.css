@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #007bff;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+  }
+  
+  .footer-link {
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-link:hover {
+    color: #e0e0e0;
+  }
+  
+  .icon-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .icon-text span {
+    font-size: 12px;
+    margin-top: 4px; /* アイコンとテキストの間にスペースを追加 */
+  }
+  
+  .main-content {
+    padding-bottom: 60px; /* フッターの高さを考慮して余白を追加 */
+  }
+  
