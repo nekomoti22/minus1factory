@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs, Tab, TextField, InputAdornment } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import SearchIcon from '@mui/icons-material/Search';
 
 function Home() {
@@ -12,15 +12,15 @@ function Home() {
 
   return (
     <div>
-      <div>
+      {/* <div>
       <Avatar src="/broken-image.jpg" />
-      </div>
+      </div> */}
       
       <div style={{ width: '100%' }}>
         <Tabs value={value} onChange={handleChange} centered sx={{ backgroundColor: '#f0f0f0', width: '100%' }}>
           <Tab label="制作物" />
-          <Tab label="仲間募集" />
-          <Tab label="イベント" />
+          {/* <Tab label="仲間募集" />
+          <Tab label="イベント" /> */}
         </Tabs>
       </div>
       <div>

@@ -1,4 +1,6 @@
+
 body {
+
     margin: 0;
     padding-top: env(safe-area-inset-top, 0);
     padding-right: env(safe-area-inset-right, 0);

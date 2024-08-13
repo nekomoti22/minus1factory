@@ -1,10 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './components/Login';
 import Home from './components/Home';
 import PostCreate from './components/PostCreate';
+
 import Notifications from './components/Notifications';
 import Account from './components/Account';
 import Footer from './components/Footer';
+import FileUploadUI from './components/FileUploadUI';
 
 function App() {
   return (
@@ -12,13 +15,14 @@ function App() {
       <div className="app">
         <main className="main-content">
           <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/create" element={<PostCreate />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/account" element={<Account />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/home" element={<><Home /><Footer /></>} />
+            <Route path="/create" element={<><PostCreate /><Footer /></>} />
+            {/* <Route path="/notifications" element={<><Notifications /><Footer /></>} />
+            <Route path="/account" element={<><Account /><Footer /></>} /> */}
+            <Route path="/FileUploadUI" element={<FileUploadUI />} />
           </Routes>
         </main>
-        <Footer />
       </div>
     </Router>
   );

@@ -47,7 +47,7 @@ function PostCreate() {
           <div className="post-field">
             <div className="media-icons">
               <InsertPhotoIcon style={{ fontSize: 30 }} />
-              <VideocamIcon style={{ fontSize: 30 }} />
+              <VideocamIcon style={{ fontSize: 30 }} />  
             </div>
             <div className="input-field">
               <GitHubIcon style={{ fontSize: 30 }} />
@@ -59,5 +59,4 @@ function PostCreate() {
     </div>
   );
 }
-
 export default PostCreate;
