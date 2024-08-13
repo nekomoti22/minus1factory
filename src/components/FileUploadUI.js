@@ -9,7 +9,7 @@ const initialState = {
 
 const FileUploadUI = () => {
   const inputRef = useRef(null)
-  const [formState, setFormState] = useState(initialState)
+  const [ setFormState] = useState(initialState)
   const [success, setSuccess] = useState(false)
 
   const uploadFile = async(file) => {

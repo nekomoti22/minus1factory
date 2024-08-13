@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 // import Box from '@mui/material/Box';
 // import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import logoImage from '/Users/yama/minus1factory/src/image/SNSicon.webp';
+import logoImage from '../image/SNSicon.webp';
 
 function Login() {
     console.log('Login');
