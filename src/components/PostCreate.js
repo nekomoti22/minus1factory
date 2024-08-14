@@ -5,6 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // import VideocamIcon from '@mui/icons-material/Videocam';
 import GitHubIcon from '@mui/icons-material/GitHub';
 // import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+
 import FileUploadUI from './FileUploadUI'; // FileUploadUIをインポート
 
 function PostCreate() {

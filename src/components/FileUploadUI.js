@@ -103,5 +103,4 @@ const FileUploadUI = () => {
     </Box>
   );
 };
-
 export default FileUploadUI;
