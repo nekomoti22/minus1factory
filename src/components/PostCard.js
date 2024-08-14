@@ -19,9 +19,9 @@ const PostCard = ({ userName, date, title, repository_URL, image_url1 }) => {
                 {title}
             </div>
             <div>
-                {<img src={image_url1} alt="Description of the image" style={{width:'100%' ,height:'auto'}}></img>}
+                {<img src={image_url1} alt="Description of the image" style={{ width: '100%', height: 'auto' }}></img>}
             </div>
-            
+
             <div className="post-content">
                 投稿内容
             </div>
