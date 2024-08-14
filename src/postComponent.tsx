@@ -33,7 +33,7 @@ const addData = async (): Promise<void> => {
         }
 }
 
-const YourComponent: React.FC = () => {
+const postbutton: React.FC = () => {
     return (
         <button onClick={addData}>
             Add Data
@@ -41,4 +41,4 @@ const YourComponent: React.FC = () => {
     )
 }
 
-export default YourComponent;
+export default postbutton;
