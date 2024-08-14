@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import Home from './components/Home';
 import PostCreate from './components/PostCreate';
-// import Notifications from './components/Notifications';
-// import Account from './components/Account'; // アカウント画面のコンポーネント
 import Footer from './components/Footer';
 
 
@@ -17,9 +15,6 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/home" element={<><Home /><Footer /></>} />
             <Route path="/create" element={<><PostCreate /><Footer /></>} />
-            {/* <Route path="/notifications" element={<><Notifications /><Footer /></>} />
-            <Route path="/account" element={<><Account /><Footer /></>} /> */}
-            {/* <Route path="/FileUploadUI" element={<FileUploadUI />} /> */}
           </Routes>
         </main>
       </div>
