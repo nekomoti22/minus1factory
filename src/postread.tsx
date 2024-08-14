@@ -8,14 +8,16 @@ const supabase = createClient("https://cdvdeesoyjnugbafkrul.supabase.co" , "eyJh
 type post = {
     id: number;
     user_id: string;
-    title: string;
-    postType: string;
-    created_at: string;
     content: string;
-    countLikes: number;
-    countComments: number;
-    imageURL: string;
-    GithubURL: string;
+    title: string;
+    date: string;
+    repository_URL: string;
+    image_url1: string;
+    image_url2: string;
+    image_url3: string;
+    image_url4: string;
+    posttype: string;
+    like_id: number;
   };
 
   const App: React.FC = () => {
@@ -46,8 +48,8 @@ type post = {
             <li key={post.id}>
                 <h2>{post.title}</h2>
                 <p>{post.content}</p>
-                <p><strong>Likes:</strong> {post.countLikes}</p>
-                <p><strong>Comments:</strong> {post.countComments}</p>
+                {/* <p><strong>Likes:</strong> {post.countLikes}</p>
+                <p><strong>Comments:</strong> {post.countComments}</p> */}
             </li>
             ))}
         </ul>
