@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react'
 import { useAsyncCallback } from 'react-async-hook'
 import Box from '@mui/material/Box'
-import CircularIntegration from './circularintegration.js';
+import CircularIntegration from './circularintegration.js'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'; // アップロードアイコンをインポート
 
 const initialState = {
   file: null,
@@ -34,7 +35,6 @@ const FileUploadUI = () => {
     setSuccess(false)
     inputRef.current.click()
   }
-
   const asyncEvent = useAsyncCallback(onFileInputChange);
 
   return (
@@ -44,6 +44,7 @@ const FileUploadUI = () => {
         asyncEvent={asyncEvent}
         success={success}
         component="label"
+
         text={asyncEvent.loading ? '...' : "Upload File"}
       />
       <input
