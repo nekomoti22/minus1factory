@@ -10,10 +10,10 @@ const initialState = {
 
 const FileUploadUI = () => {
   const inputRef = useRef(null)
-  const [setFormState] = useState(initialState)
+  const [ setFormState] = useState(initialState)
   const [success, setSuccess] = useState(false)
 
-  const uploadFile = async (file) => {
+  const uploadFile = async(file) => {
     if (!file) return
 
     /* アップロード処理に見立てた時間のかかる処理 */
@@ -35,8 +35,7 @@ const FileUploadUI = () => {
     setSuccess(false)
     inputRef.current.click()
   }
-
-  const asyncEvent = useAsyncCallback(onFileInputChange)
+  const asyncEvent = useAsyncCallback(onFileInputChange);
 
   return (
     <Box>
@@ -45,7 +44,8 @@ const FileUploadUI = () => {
         asyncEvent={asyncEvent}
         success={success}
         component="label"
-        text={asyncEvent.loading ? '...' : <CloudUploadIcon style={{ color: 'white' }} />} // アイコンの色を白に設定
+
+        text={asyncEvent.loading ? '...' : "Upload File"}
       />
       <input
         hidden

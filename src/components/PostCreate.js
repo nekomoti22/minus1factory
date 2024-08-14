@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import PostHeader from './PostHeader'; // PostHeaderをインポート
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-// import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
-// import VideocamIcon from '@mui/icons-material/Videocam';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import FileUploadUI from './FileUploadUI'; // FileUploadUIをインポート
@@ -46,8 +44,6 @@ function PostCreate() {
           />
           <div className="post-field">
             <div className="media-icons">
-              {/* <InsertPhotoIcon style={{ fontSize: 30 }} />
-              <VideocamIcon style={{ fontSize: 30 }} /> */}
             </div>
             {/* ファイルアップロードUIを追加 */}
             <FileUploadUI />
@@ -61,5 +57,4 @@ function PostCreate() {
     </div>
   );
 }
-
 export default PostCreate;
