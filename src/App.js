@@ -16,10 +16,8 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/home" element={<><Home /><Footer /></>} />
             <Route path="/create" element={<><PostCreate /><Footer /></>} />
-            {/* <Route path="/notifications" element={<><Notifications /><Footer /></>} />
-            <Route path="/account" element={<><Account /><Footer /></>} /> */}
-            {/* <Route path="/FileUploadUI" element={<FileUploadUI />} /> */}
-            
+
+            <Route path="/FileUploadUI" element={<FileUploadUI />} />
           </Routes>
         </main>
       </div>

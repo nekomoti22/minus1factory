@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
-import { useAsyncCallback } from 'react-async-hook';
-import Box from '@mui/material/Box';
-import CircularIntegration from './circularintegration.js';
+
+import React, { useState, useRef } from 'react'
+import { useAsyncCallback } from 'react-async-hook'
+import Box from '@mui/material/Box'
+import CircularIntegration from './circularintegration.js'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'; // アップロードアイコンをインポート
 
 const initialState = {
@@ -49,10 +50,10 @@ const FileUploadUI = () => {
   };
 
   const clickFileUploadButton = () => {
-    setSuccess(false);
-    inputRef.current.click();
-  };
 
+    setSuccess(false)
+    inputRef.current.click()
+  }
   const asyncEvent = useAsyncCallback(onFileInputChange);
 
   return (
@@ -91,6 +92,7 @@ const FileUploadUI = () => {
         success={success}
         component="label"
         text={asyncEvent.loading ? '...' : <CloudUploadIcon style={{ color: 'white' }} />} // アイコンの色を白に設定
+
       />
       <input
         hidden
@@ -104,4 +106,5 @@ const FileUploadUI = () => {
   );
 };
 
-export default FileUploadUI;
+
+export default FileUploadUI
