@@ -3,10 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import Home from './components/Home';
 import PostCreate from './components/PostCreate';
-// import Notifications from './components/Notifications';
-// import Account from './components/Account'; // アカウント画面のコンポーネント
 import Footer from './components/Footer';
-import FileUploadUI from './components/FileUploadUI';
+// import ShareButton from './components/ShareButton'; // インポート文を修正
+
 
 function App() {
   return (
@@ -19,7 +18,8 @@ function App() {
             <Route path="/create" element={<><PostCreate /><Footer /></>} />
             {/* <Route path="/notifications" element={<><Notifications /><Footer /></>} />
             <Route path="/account" element={<><Account /><Footer /></>} /> */}
-            <Route path="/FileUploadUI" element={<FileUploadUI />} />
+            {/* <Route path="/FileUploadUI" element={<FileUploadUI />} /> */}
+            
           </Routes>
         </main>
       </div>

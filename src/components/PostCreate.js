@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import PostHeader from './PostHeader'; // PostHeaderをインポート
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
-import VideocamIcon from '@mui/icons-material/Videocam';
+// import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+// import VideocamIcon from '@mui/icons-material/Videocam';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+// import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import FileUploadUI from './FileUploadUI'; // FileUploadUIをインポート
 
 function PostCreate() {
   const [selectedCategory, setSelectedCategory] = useState('制作物');
   const [postContent, setPostContent] = useState('');
-
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
   };
 
-  const handlePostContentChange = (event) => {
-    setPostContent(event.target.value);
-  };
+  console.log(postContent);
 
   return (
     <div>
@@ -25,7 +23,7 @@ function PostCreate() {
         <div className="content-box">
           <div className="user-info">
             <AccountCircleIcon style={{ fontSize: 60 }} />
-            <FormControl variant="outlined" className="user-menu">
+            {/* <FormControl variant="outlined" className="user-menu">
               <InputLabel>選択肢</InputLabel>
               <Select
                 value={selectedCategory}
@@ -36,19 +34,22 @@ function PostCreate() {
                 <MenuItem value="仲間募集">仲間募集</MenuItem>
                 <MenuItem value="イベント">イベント</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
           </div>
           <textarea
             className="post-textarea"
             placeholder="ここに投稿内容を入力してください"
             value={postContent}
-            onChange={handlePostContentChange}
+            onChange={(e)=> {setPostContent(e.target.value)}}
           />
+
           <div className="post-field">
             <div className="media-icons">
-              <InsertPhotoIcon style={{ fontSize: 30 }} />
-              <VideocamIcon style={{ fontSize: 30 }} />  
+              {/* <InsertPhotoIcon style={{ fontSize: 30 }} />
+              <VideocamIcon style={{ fontSize: 30 }} /> */}
             </div>
+            {/* ファイルアップロードUIを追加 */}
+            <FileUploadUI />
             <div className="input-field">
               <GitHubIcon style={{ fontSize: 30 }} />
               <input type="text" placeholder="https://github.com..." />
@@ -59,4 +60,5 @@ function PostCreate() {
     </div>
   );
 }
+
 export default PostCreate;
