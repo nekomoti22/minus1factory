@@ -4,7 +4,8 @@ import Login from './components/Login';
 import Home from './components/Home';
 import PostCreate from './components/PostCreate';
 import Footer from './components/Footer';
-import FileUploadUI from './components/FileUploadUI';
+// import ShareButton from './components/ShareButton'; // インポート文を修正
+
 
 function App() {
   return (
@@ -15,7 +16,6 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/home" element={<><Home /><Footer /></>} />
             <Route path="/create" element={<><PostCreate /><Footer /></>} />
-            <Route path="/FileUploadUI" element={<FileUploadUI />} />
           </Routes>
         </main>
       </div>
