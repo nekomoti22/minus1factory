@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { supabase } from "../lib/supabase-client.ts";
+import { supabase } from "../lib/supabase-client";
 
 // 投稿データの型定義
 type Posts = {
