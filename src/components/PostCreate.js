@@ -13,7 +13,7 @@ import { createClient } from "@supabase/supabase-js";
 import { Link } from "react-router-dom";
 
 // import FileUploadUI from './FileUploadUI'; // FileUploadUIをインポート
-// import { uploadStorage } from '../ecosystem/storage.ts';
+import { uploadStorage } from '../ecosystem/storage.ts';
 
 const initialState = {
   files: [],
