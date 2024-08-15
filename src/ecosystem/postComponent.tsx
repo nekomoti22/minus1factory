@@ -1,5 +1,5 @@
 
-import { createClient, SupabaseClient } from "@supabase/supabase-js/src/index.ts"
+import { createClient, SupabaseClient } from "@supabase/supabase-js/src/index"
 import React, { useState } from 'react'
 
 const supabaseUrl: string = "https://cdvdeesoyjnugbafkrul.supabase.co"

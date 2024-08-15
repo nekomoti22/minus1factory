@@ -1,4 +1,4 @@
-import React, { useState, useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PostHeader from './PostHeader'; // PostHeaderをインポート
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // import GitHubIcon from '@mui/icons-material/GitHub';
@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import CircularIntegration from './circularintegration.js';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 // import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
-import { addData } from "../ecosystem/storage.ts"
+import { addData, uploadStorage } from "../ecosystem/storage.ts"
 import { createClient } from '@supabase/supabase-js';
 
 // import FileUploadUI from './FileUploadUI'; // FileUploadUIをインポート
@@ -53,7 +53,7 @@ function PostCreate() {
         console.error('User ID is not available.');
       }
     };
-  
+
     fetchUserId(); // ユーザーIDを取得する関数を呼び出し
   }, []);
 
@@ -70,7 +70,7 @@ function PostCreate() {
     setFormState(initialState);
     setSuccess(true);
   };
-  
+
 
   const onFileInputChange = async (event) => {
     const files = Array.from(event.target.files).slice(0, 4); // 最大4つまで選択可能
@@ -100,12 +100,13 @@ function PostCreate() {
   };
 
   const upload = async () => {
-      // 現在の日付を取得
-const currentDate = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' }); // ISO形式の日時に変換
-console.log("date",currentDate)
+    // 現在の日付を取得
+    const currentDate = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' }); // ISO形式の日時に変換
+    console.log("date", currentDate)
     console.log("User ID in upload function:", userId); // 投稿時のユーザーIDを確認
     // 投稿データを保存する関数をここで呼び出し
-    addData({ user_id: userId, content: postContent, title: title,date:currentDate, repository_URL: repository_URL });
+    const path = uploadStorage()
+    addData({ user_id: userId, content: postContent, title: title, date: currentDate, repository_URL: repository_URL, image_url1: path });
   };
 
 
