@@ -1,3 +1,4 @@
+
 import { createClient, SupabaseClient } from "@supabase/supabase-js/src/index.ts"
 import React, { useState } from 'react'
 
@@ -5,13 +6,16 @@ const supabaseUrl: string = "https://cdvdeesoyjnugbafkrul.supabase.co"
 const supabasekey: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkdmRlZXNveWpudWdiYWZrcnVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI1NzU0MzEsImV4cCI6MjAzODE1MTQzMX0.jJGXFeqyQyEDSB4uRjqb0TN1UKbhbgnklXZ4ZkNzgXk"
 const supabase: SupabaseClient = createClient(supabaseUrl, supabasekey)
 
+
 type post = {
     id: number
     user_id: string,
     content: string,
     title: string,
     date: string,
+
     repository_URL: string,
+
     image_url1: string,
     image_url2: string,
     image_url3: string,
@@ -34,9 +38,6 @@ const PostButton = () => {
 
 
         console.log("userId",userId);
-
-
-
         // ユーザーIDを取得
         if (!userId) {
             const { data: userData, error: userError } = await supabase.auth.getUser()
