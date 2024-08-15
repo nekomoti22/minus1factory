@@ -1,9 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import HomeIcon from '@mui/icons-material/Home';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-// import NotificationsIcon from '@mui/icons-material/Notifications';
-// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import React from "react";
+import { Link } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 function Footer() {
   return (
@@ -16,15 +14,6 @@ function Footer() {
         <AddCircleIcon fontSize="small" />
         <span className="icon-text">Post</span>
       </Link>
-
-      {/* <Link to="/notifications" className="footer-link">
-        <NotificationsIcon fontSize="small" />
-        <span className="icon-text">Notice</span>
-      </Link> */}
-      {/* <Link to="/account" className="footer-link">
-        <AccountCircleIcon fontSize="small" />
-        <span className="icon-text">Account</span>
-      </Link> */}
     </footer>
   );
 }
