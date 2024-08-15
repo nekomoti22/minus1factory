@@ -1,5 +1,4 @@
-
-import { createClient, SupabaseClient } from "@supabase/supabase-js/src/index"
+import{ createClient,SupabaseClient } from "@supabase/supabase-js"
 import React, { useState } from 'react'
 
 const supabaseUrl: string = "https://cdvdeesoyjnugbafkrul.supabase.co"
@@ -52,8 +51,33 @@ const PostButton = () => {
                 return
             }
         }
+        const u_id = 10;
 
-        // addData(url,user_id,...)
+/*ここに投稿データを入力(今は仮で文字を入れてます)*/
+const addData = async ({user_id,content,title,date,repository_URL,image_url1,image_url2,image_url3,image_url4,posttype,like_id}:post): Promise<void> => {
+    const { data, error } = await supabase
+        .from('posts')
+        .insert([
+            {
+                user_id: user_id,
+                content: content,
+                title: title,
+                date: date,
+                repository_URL: repository_URL,
+                image_url1: image_url1,
+                image_url2: image_url2,
+                image_url3: image_url3,
+                image_url4: image_url4,
+                posttype: posttype,
+                like_id: like_id
+        },
+        ])
+        if (error) {
+            console.error('Error adding data:', error)
+        } else {
+            console.log('Data added:', data)
+        }
+    }   
 
         /*ここに投稿データを入力(今は仮で文字を入れてます)*/
 

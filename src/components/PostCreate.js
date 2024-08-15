@@ -126,6 +126,13 @@ function PostCreate() {
 
   const asyncEvent = useAsyncCallback(onFileInputChange);
 
+  const imageUpload = async () => {
+    console.log("image upload");
+    const url = await uploadStorage({ filelist: uploadedFilelist, bucketName: "pictures" });
+    console.log(url);
+  }
+
+
   return (
     <div>
       <PostHeader /> {/* 投稿画面専用のヘッダーを追加 */}
@@ -248,7 +255,8 @@ function PostCreate() {
           </div>
         </div>
       </div>
-      <div>※写真は4枚まで投稿できます</div>
+      <div>※写真は4枚まで、動画は50MBまで投稿できます。
+      </div>
       <Link to="/home">
         <button className="post-button" onClick={upload}>
           投　稿
