@@ -35,8 +35,6 @@ function PostCreate() {
   //   setSelectedCategory(event.target.value);
   // };
 
-  console.log(postContent);
-
   const inputRef = useRef(null);
   const [setFormState] = useState(initialState);
   const [success, setSuccess] = useState(false);
@@ -115,13 +113,12 @@ function PostCreate() {
     console.log("date", currentDate);
     console.log("User ID in upload function:", userId); // 投稿時のユーザーIDを確認
     // 投稿データを保存する関数をここで呼び出し
-    addData({
-      user_id: userId,
-      content: postContent,
-      title: title,
-      date: currentDate,
-      repository_URL: repository_URL,
-    });
+
+    console.log(uploadedFilelist);
+    const path = await uploadStorage({ filelist: uploadedFilelist, bucketName: "pictures" })
+    const url = `https://cdvdeesoyjnugbafkrul.supabase.co/storage/v1/object/public/pictures/${path.path}`
+    addData({ user_id: userId, content: postContent, title: title, date: currentDate, repository_URL: repository_URL, image_url1: url });
+
   };
 
   const asyncEvent = useAsyncCallback(onFileInputChange);

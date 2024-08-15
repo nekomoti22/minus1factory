@@ -5,12 +5,17 @@ import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io"; // IoIosHeart を�
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 const PostCard = ({ userName, date, title, repository_URL, image_url1 }) => {
+
+    const extension = image_url1.split('.').pop();
+
+
+    console.log(image_url1);
     const [liked, setLiked] = useState(false); // liked状態を管理
 
     const toggleLike = () => {
         setLiked(!liked); // クリックされたら状態を反転
     };
-    
+
     return (
         <div className="post-card">
             <div className="post-header">
@@ -24,7 +29,13 @@ const PostCard = ({ userName, date, title, repository_URL, image_url1 }) => {
                 {title}
             </div>
             <div>
-                <img src={image_url1} alt="" style={{ width: '100%', height: 'auto' }} />
+                {/* If extension is an image format, display the image, otherwise indicate it's a video */}
+                {['jpeg', 'jpg', 'gif', 'png', 'webp'].includes(extension) ? (
+                    <img src={image_url1} alt="" style={{ width: '100%', height: 'auto' }} />
+                ) : (
+                    <video src={image_url1} controls style={{ width: '100%', height: 'auto' }} />
+
+                )}
             </div>
             <div className="post-content">
                 投稿内容
