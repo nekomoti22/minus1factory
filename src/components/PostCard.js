@@ -37,9 +37,9 @@ const PostCard = ({ userName, date, title, repository_URL, image_url1 }) => {
 
                 )}
             </div>
-            <div className="post-content">
+            {/* <div className="post-content">
                 投稿内容
-            </div>
+            </div> */}
             <div className="actions" style={{ display: 'flex', alignItems: 'center' }}>
                 <ShareButton size={32} round />
                 <div onClick={toggleLike} style={{ cursor: 'pointer' }}>
