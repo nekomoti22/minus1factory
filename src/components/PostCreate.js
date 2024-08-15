@@ -9,11 +9,12 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import FileUploadUI from './FileUploadUI'; // FileUploadUIをインポート
 
 function PostCreate() {
-  const [selectedCategory, setSelectedCategory] = useState('制作物');
+  // const [selectedCategory, setSelectedCategory] = useState('制作物');
   const [postContent, setPostContent] = useState('');
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
+  const [title, setTitle] = useState('')
+  // const handleCategoryChange = (event) => {
+  //   setSelectedCategory(event.target.value);
+  // };
 
   console.log(postContent);
 
@@ -24,6 +25,13 @@ function PostCreate() {
         <div className="content-box">
           <div className="user-info">
             <AccountCircleIcon style={{ fontSize: 60 }} />
+            <textarea
+            className="post-textarea"
+            placeholder="タイトル"
+            value={title}
+            onChange={(e)=> {setTitle(e.target.value)}}
+            style={{ width: '350px', height: '40px' }}
+          />
             {/* <FormControl variant="outlined" className="user-menu">
               <InputLabel>選択肢</InputLabel>
               <Select

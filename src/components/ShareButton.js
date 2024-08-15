@@ -30,7 +30,7 @@ export default function ShareButton() {
         onClose={toggleDrawer('bottom', false)}
         sx={{
           '& .MuiDrawer-paper': {
-            height: '20%', // 高さを50%に設定
+            height: '20%', // 高さを20%に設定
             width: '100%', // 幅を100%に設定（画面全体）
             maxHeight: '50%', // 最大高さを80%に制限
           }

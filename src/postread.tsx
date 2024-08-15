@@ -14,7 +14,7 @@ type post = {
     repository_URL: string;
     image_url1: string;
     image_url2: string;
-    image_url3: string;
+    image_url3: string; 
     image_url4: string;
     posttype: string;
     like_id: number;
