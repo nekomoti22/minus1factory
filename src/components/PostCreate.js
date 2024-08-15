@@ -1,24 +1,32 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import PostHeader from './PostHeader'; // PostHeaderをインポート
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import GitHubIcon from '@mui/icons-material/GitHub';
+// import GitHubIcon from '@mui/icons-material/GitHub';
 import { useAsyncCallback } from 'react-async-hook';
 import Box from '@mui/material/Box';
 import CircularIntegration from './circularintegration.js';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 // import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { addData } from "../ecosystem/storage.ts"
+import { createClient } from '@supabase/supabase-js';
 
-import FileUploadUI from './FileUploadUI'; // FileUploadUIをインポート
-import { uploadStorage } from '../ecosystem/storage.ts';
+// import FileUploadUI from './FileUploadUI'; // FileUploadUIをインポート
+// import { uploadStorage } from '../ecosystem/storage.ts';
 
 const initialState = {
   files: [],
 };
 
+const supabaseUrl = "https://cdvdeesoyjnugbafkrul.supabase.co"
+const supabasekey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkdmRlZXNveWpudWdiYWZrcnVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI1NzU0MzEsImV4cCI6MjAzODE1MTQzMX0.jJGXFeqyQyEDSB4uRjqb0TN1UKbhbgnklXZ4ZkNzgXk"
+const supabase = createClient(supabaseUrl, supabasekey)
+
 function PostCreate() {
+  const [userId, setUserId] = useState("")
   // const [selectedCategory, setSelectedCategory] = useState('制作物');
   const [postContent, setPostContent] = useState('');
   const [title, setTitle] = useState('')
+  const [repository_URL, setRepository_URL] = useState('')
   // const handleCategoryChange = (event) => {
   //   setSelectedCategory(event.target.value);
   // };
@@ -30,6 +38,25 @@ function PostCreate() {
   const [success, setSuccess] = useState(false);
   const [previews, setPreviews] = useState([]);
   const [uploadedFilelist, setUploadedFilelist] = useState(null);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const { data: userData, error: userError } = await supabase.auth.getUser();
+      if (userError) {
+        console.error('Error fetching user:', userError);
+        return;
+      }
+      if (userData && userData.user) {
+        setUserId(userData.user.id);
+        console.log("Fetched User ID:", userData.user.id); // 取得したユーザーIDをコンソールに表示
+      } else {
+        console.error('User ID is not available.');
+      }
+    };
+  
+    fetchUserId(); // ユーザーIDを取得する関数を呼び出し
+  }, []);
+
 
   const uploadFile = async (files) => {
     if (!files || files.length === 0) return;
@@ -43,6 +70,7 @@ function PostCreate() {
     setFormState(initialState);
     setSuccess(true);
   };
+  
 
   const onFileInputChange = async (event) => {
     const files = Array.from(event.target.files).slice(0, 4); // 最大4つまで選択可能
@@ -71,10 +99,15 @@ function PostCreate() {
     inputRef.current.click();
   };
 
-  const upload = () => {
-    console.log(uploadedFilelist);
-    uploadStorage({ filelist: uploadedFilelist, bucketName:"pictures" });
-  }
+  const upload = async () => {
+      // 現在の日付を取得
+const currentDate = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' }); // ISO形式の日時に変換
+console.log("date",currentDate)
+    console.log("User ID in upload function:", userId); // 投稿時のユーザーIDを確認
+    // 投稿データを保存する関数をここで呼び出し
+    addData({ user_id: userId, content: postContent, title: title,date:currentDate, repository_URL: repository_URL });
+  };
+
 
   const asyncEvent = useAsyncCallback(onFileInputChange);
 
@@ -86,12 +119,12 @@ function PostCreate() {
           <div className="user-info">
             <AccountCircleIcon style={{ fontSize: 60 }} />
             <textarea
-            className="post-textarea"
-            placeholder="タイトル"
-            value={title}
-            onChange={(e)=> {setTitle(e.target.value)}}
-            style={{ width: '350px', height: '40px' }}
-          />
+              className="post-textarea"
+              placeholder="タイトル"
+              value={title}
+              onChange={(e) => { setTitle(e.target.value) }}
+              style={{ width: '350px', height: '40px' }}
+            />
             {/* <FormControl variant="outlined" className="user-menu">
               <InputLabel>選択肢</InputLabel>
               <Select
@@ -161,16 +194,18 @@ function PostCreate() {
                 onChange={asyncEvent.execute}
               />
             </Box>
-            <div className="input-field">
-              <GitHubIcon style={{ fontSize: 30 }} />
-              <input type="text" placeholder="https://github.com..." />
-            </div>
+            <textarea className="input-field"
+              // GitHubIcon style={{ fontSize: 30 }} 
+              placeholder="リポジトリURL"
+              value={repository_URL}
+              onChange={(e) => { setRepository_URL(e.target.value) }}
+              style={{ width: '300px', height: '30px' }}
+            />
           </div>
         </div>
       </div>
       <button
-      
-      onClick={upload}>hoge</button>
+        onClick={upload}>投稿</button>
     </div>
   );
 }
