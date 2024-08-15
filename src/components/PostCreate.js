@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import PostHeader from "./PostHeader"; // PostHeaderをインポート
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";z
 // import GitHubIcon from '@mui/icons-material/GitHub';
 import { useAsyncCallback } from "react-async-hook";
 import Box from "@mui/material/Box";
 import CircularIntegration from "./circularintegration.js";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";z
 // import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { addData } from "../ecosystem/storage.ts";
 import { createClient } from "@supabase/supabase-js";
