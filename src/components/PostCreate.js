@@ -1,32 +1,36 @@
-import React, { useState, useRef, useEffect } from 'react';
-import PostHeader from './PostHeader'; // PostHeaderをインポート
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import React, { useState, useRef, useEffect } from "react";
+import PostHeader from "./PostHeader"; // PostHeaderをインポート
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // import GitHubIcon from '@mui/icons-material/GitHub';
-import { useAsyncCallback } from 'react-async-hook';
-import Box from '@mui/material/Box';
-import CircularIntegration from './circularintegration.js';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useAsyncCallback } from "react-async-hook";
+import Box from "@mui/material/Box";
+import CircularIntegration from "./circularintegration.js";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 // import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
-import { addData, uploadStorage } from "../ecosystem/storage.ts"
-import { createClient } from '@supabase/supabase-js';
+import { addData } from "../ecosystem/storage.ts";
+import { createClient } from "@supabase/supabase-js";
+
+import { Link } from "react-router-dom";
 
 // import FileUploadUI from './FileUploadUI'; // FileUploadUIをインポート
-// import { uploadStorage } from '../ecosystem/storage.ts';
+import { uploadStorage } from '../ecosystem/storage.ts';
 
 const initialState = {
   files: [],
 };
 
-const supabaseUrl = "https://cdvdeesoyjnugbafkrul.supabase.co"
-const supabasekey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkdmRlZXNveWpudWdiYWZrcnVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI1NzU0MzEsImV4cCI6MjAzODE1MTQzMX0.jJGXFeqyQyEDSB4uRjqb0TN1UKbhbgnklXZ4ZkNzgXk"
-const supabase = createClient(supabaseUrl, supabasekey)
+const supabaseUrl = "https://cdvdeesoyjnugbafkrul.supabase.co";
+const supabasekey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkdmRlZXNveWpudWdiYWZrcnVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI1NzU0MzEsImV4cCI6MjAzODE1MTQzMX0.jJGXFeqyQyEDSB4uRjqb0TN1UKbhbgnklXZ4ZkNzgXk";
+const supabase = createClient(supabaseUrl, supabasekey);
 
 function PostCreate() {
-  const [userId, setUserId] = useState("")
+  const [userId, setUserId] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
   // const [selectedCategory, setSelectedCategory] = useState('制作物');
-  const [postContent, setPostContent] = useState('');
-  const [title, setTitle] = useState('')
-  const [repository_URL, setRepository_URL] = useState('')
+  const [postContent, setPostContent] = useState("");
+  const [title, setTitle] = useState("");
+  const [repository_URL, setRepository_URL] = useState("");
   // const handleCategoryChange = (event) => {
   //   setSelectedCategory(event.target.value);
   // };
@@ -39,22 +43,27 @@ function PostCreate() {
 
   useEffect(() => {
     const fetchUserId = async () => {
-      const { data: userData, error: userError } = await supabase.auth.getUser();
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
       if (userError) {
-        console.error('Error fetching user:', userError);
+        console.error("Error fetching user:", userError);
         return;
       }
       if (userData && userData.user) {
         setUserId(userData.user.id);
         console.log("Fetched User ID:", userData.user.id); // 取得したユーザーIDをコンソールに表示
+
+        // GitHubのプロフィールアイコンのURLを取得
+        await console.log(supabase.auth.getUser());
+        const avatarUrl = `${userData.user.identities[0].identity_data.avatar_url}`;
+        console.log(userData.user.identities[0].identity_data.avatar_url);
+        setAvatarUrl(avatarUrl); // アバターURLを状態に保存
       } else {
-        console.error('User ID is not available.');
+        console.error("User ID is not available.");
       }
     };
-
     fetchUserId(); // ユーザーIDを取得する関数を呼び出し
   }, []);
-
 
   const uploadFile = async (files) => {
     if (!files || files.length === 0) return;
@@ -69,11 +78,10 @@ function PostCreate() {
     setSuccess(true);
   };
 
-
   const onFileInputChange = async (event) => {
     const files = Array.from(event.target.files).slice(0, 4); // 最大4つまで選択可能
     const newPreviews = [];
-    setUploadedFilelist(files)
+    setUploadedFilelist(files);
 
     files.forEach((file) => {
       const reader = new FileReader();
@@ -83,7 +91,9 @@ function PostCreate() {
         newPreviews.push({ url: reader.result, type: fileType });
         // すべてのファイルを読み込み終わったらステートを更新
         if (newPreviews.length === files.length) {
-          setPreviews((prevPreviews) => [...prevPreviews, ...newPreviews].slice(0, 4)); // 最大4つまで表示
+          setPreviews((prevPreviews) =>
+            [...prevPreviews, ...newPreviews].slice(0, 4)
+          ); // 最大4つまで表示
         }
       };
       reader.readAsDataURL(file);
@@ -99,18 +109,26 @@ function PostCreate() {
 
   const upload = async () => {
     // 現在の日付を取得
-    const currentDate = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' }); // ISO形式の日時に変換
-    console.log("date", currentDate)
+    const currentDate = new Date().toLocaleString({ timeZone: "Asia/Tokyo" }); // ISO形式の日時に変換
+    console.log("date", currentDate);
     console.log("User ID in upload function:", userId); // 投稿時のユーザーIDを確認
     // 投稿データを保存する関数をここで呼び出し
+
     console.log(uploadedFilelist);
     const path = await uploadStorage({ filelist: uploadedFilelist, bucketName: "pictures" })
     const url = `https://cdvdeesoyjnugbafkrul.supabase.co/storage/v1/object/public/pictures/${path.path}`
     addData({ user_id: userId, content: postContent, title: title, date: currentDate, repository_URL: repository_URL, image_url1: url });
+
   };
 
-
   const asyncEvent = useAsyncCallback(onFileInputChange);
+
+  const imageUpload = async () => {
+    console.log("image upload");
+    const url = await uploadStorage({ filelist: uploadedFilelist, bucketName: "pictures" });
+    console.log(url);
+  }
+
 
   return (
     <div>
@@ -118,13 +136,23 @@ function PostCreate() {
       <div className="post-content">
         <div className="content-box">
           <div className="user-info">
-            <AccountCircleIcon style={{ fontSize: 60 }} />
+            {avatarUrl ? (
+              <img
+                src={avatarUrl}
+                alt="User Avatar"
+                style={{ width: 60, height: 60, borderRadius: "50%" }}
+              />
+            ) : (
+              <AccountCircleIcon style={{ fontSize: 60 }} />
+            )}
             <textarea
               className="post-textarea"
               placeholder="タイトル"
               value={title}
-              onChange={(e) => { setTitle(e.target.value) }}
-              style={{ width: '350px', height: '40px' }}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+              style={{ width: "350px", height: "40px" }}
             />
             {/* <FormControl variant="outlined" className="user-menu">
               <InputLabel>選択肢</InputLabel>
@@ -143,38 +171,48 @@ function PostCreate() {
             className="post-textarea"
             placeholder="ここに投稿内容を入力してください"
             value={postContent}
-            onChange={(e) => { setPostContent(e.target.value) }}
+            onChange={(e) => {
+              setPostContent(e.target.value);
+            }}
           />
 
           <div className="post-field">
-            <div className="media-icons">
-            </div>
-            {/* ファイルアップロードUIを追加 */}
-            <Box sx={{ textAlign: 'center', margin: '0 auto' }}>
+            <div className="media-icons"></div>
+            {/* ファイルアップロードUIを��加 */}
+            <Box sx={{ textAlign: "center", margin: "0 auto" }}>
               <Box
                 sx={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr', // 常に2列のグリッド
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr", // 常に2列のグリッド
                   gap: 2,
-                  maxWidth: '500px', // グリッド全体の最大幅を設定
-                  margin: '0 auto',
+                  maxWidth: "500px", // グリッド全体の最大幅を設定
+                  margin: "0 auto",
                 }}
               >
                 {previews.map((preview, index) => (
                   <Box
                     key={index}
                     sx={{
-                      width: '100%',
-                      height: 'auto',
-                      maxWidth: '240px', // 各メディアの最大幅を設定
-                      gridColumn: index % 2 === 0 ? '1' : '2',
+                      width: "100%",
+                      height: "auto",
+                      maxWidth: "240px", // 各メディアの最大幅を設定
+                      gridColumn: index % 2 === 0 ? "1" : "2",
                       gridRow: Math.floor(index / 2) + 1,
                     }}
                   >
-                    {preview.type.startsWith('image/') ? (
-                      <Box component="img" src={preview.url} sx={{ width: '100%', height: 'auto' }} />
-                    ) : preview.type.startsWith('video/') ? (
-                      <Box component="video" src={preview.url} controls sx={{ width: '100%', height: 'auto' }} />
+                    {preview.type.startsWith("image/") ? (
+                      <Box
+                        component="img"
+                        src={preview.url}
+                        sx={{ width: "100%", height: "auto" }}
+                      />
+                    ) : preview.type.startsWith("video/") ? (
+                      <Box
+                        component="video"
+                        src={preview.url}
+                        controls
+                        sx={{ width: "100%", height: "auto" }}
+                      />
                     ) : null}
                   </Box>
                 ))}
@@ -184,7 +222,13 @@ function PostCreate() {
                 asyncEvent={asyncEvent}
                 success={success}
                 component="label"
-                text={asyncEvent.loading ? '...' : <CloudUploadIcon style={{ color: 'white' }} />} // アイコンの色を白に設定
+                text={
+                  asyncEvent.loading ? (
+                    "..."
+                  ) : (
+                    <CloudUploadIcon style={{ color: "white" }} />
+                  )
+                } // アイコンの色を白に設定
               />
               <input
                 hidden
@@ -195,18 +239,26 @@ function PostCreate() {
                 onChange={asyncEvent.execute}
               />
             </Box>
-            <textarea className="input-field"
-              // GitHubIcon style={{ fontSize: 30 }} 
+            <textarea
+              className="input-field"
+              // GitHubIcon style={{ fontSize: 30 }}
               placeholder="リポジトリURL"
               value={repository_URL}
-              onChange={(e) => { setRepository_URL(e.target.value) }}
-              style={{ width: '300px', height: '30px' }}
+              onChange={(e) => {
+                setRepository_URL(e.target.value);
+              }}
+              style={{ width: "300px", height: "30px" }}
             />
           </div>
         </div>
       </div>
-      <button
-        onClick={upload}>投稿</button>
+      <div>※写真は4枚まで、動画は50MBまで投稿できます。
+      </div>
+      <Link to="/home">
+        <button className="post-button" onClick={upload}>
+          投　稿
+        </button>
+      </Link>
     </div>
   );
 }
