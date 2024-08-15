@@ -109,8 +109,8 @@ function PostCreate() {
 
   const upload = async () => {
     // 現在の日付を取得
-    const currentDate = new Date().toLocaleString({ timeZone: "Asia/Tokyo" }); // ISO形式の日時に変換
-    console.log("date", currentDate);
+    const currentDate = new Date().toLocaleDateString({ timeZone: 'Asia/Tokyo' });  
+    console.log("date", currentDate)
     console.log("User ID in upload function:", userId); // 投稿時のユーザーIDを確認
     // 投稿データを保存する関数をここで呼び出し
 

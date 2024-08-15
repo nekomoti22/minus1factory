@@ -4,13 +4,12 @@ import { Tabs, Tab, TextField, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 // import { SnsIcon } from "./SnsIcon";
 import PostCard from "./PostCard";
-import { posts } from "../test.ts";
+// import { posts } from "../test.ts";
 import { fetchPosts } from "../ecosystem/postcontentTohome.ts"
 
 function Home() {
   const [value, setValue] = React.useState("one");
   const [fechedPosts, setFechedPosts] = useState([]);
-
   const handleChange = (newValue) => {
     setValue(newValue);
   };
@@ -25,6 +24,14 @@ function Home() {
     fetchData(); // 非同期関数を呼び出し
   }, []);
 
+  console.log(fechedPosts)
+  let postData = []
+  fechedPosts.forEach(element => {
+    const replaceDate = element.date.replace(/T.*/, '')
+    postData.push({user_id: element.user_id, date: replaceDate, title:element.title, repository_URL:element.repository_URL, image_url1:element.image_url1 })
+    // setPostData({...postData}, {user_id: element.user_id, date: replaceDate, title:element.title, repository_URL:element.repository_URL, image_url1:element.image_url1 })
+  });
+  console.log(postData)
   return (
     <div>
       <div style={{ width: "100%" }}>
@@ -54,7 +61,7 @@ function Home() {
         />
       </div>
       {/* 複数並ぶ */}
-      <div style={{ paddingBottom: 50 }}> {fechedPosts.map((post) => <PostCard userName={post.user_id} date={post.date} title={post.title} repository_URL={post.repository_URL} image_url1={post.image_url1} />)}</div>
+      <div style={{ paddingBottom: 50 }}> {postData.map((post) => <PostCard userName={post.user_id} date={post.date} title={post.title} repository_URL={post.repository_URL} image_url1={post.image_url1} />)}</div>
     </div>
   );
 }
