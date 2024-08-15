@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { supabase } from '../lib/supabase-client.ts';
+import { supabase } from '../lib/supabase-client';
 import React from 'react'
-import { Session } from '@supabase/supabase-js/src/index.ts';
+import { Session } from '@supabase/supabase-js';
 
 export default function Home() {
   const [session, setSession] = useState<Session|null>()
