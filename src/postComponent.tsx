@@ -42,22 +42,22 @@ const PostButton= () => {
         }
 
 /*ここに投稿データを入力(今は仮で文字を入れてます)*/
-const addData = async (): Promise<void> => {
+const addData = async (user_id,content,title,date,repository_URL,image_url1,image_url2,image_url3,image_url4,posttype,like_id): Promise<void> => {
     const { data, error } = await supabase
         .from('posts')
         .insert([
             {
-            user_id: "1", 
-            content: "Content", 
-            title: "Title", 
-            date: "2021-06-01", 
-            repository_URL: "Repository_URL",
-            image_url1: "Image_url",
-            image_url2: "Image_url",
-            image_url3: "Image_url",
-            image_url4: "Image_url", 
-            posttype: "Type",
-            like_id: "1",
+                user_id: user_id,
+                content: content,
+                title: title,
+                date: date,
+                repository_URL: repository_URL,
+                image_url1: image_url1,
+                image_url2: image_url2,
+                image_url3: image_url3,
+                image_url4: image_url4,
+                posttype: posttype,
+                like_id: like_id
         },
         ])
         if (error) {

@@ -43,6 +43,8 @@ function Home() {
           placeholder="検索"
         />
       </div>
+      {/* 複数並ぶ */}
+      <div style={{paddingBottom:50}}> {posts.map((post) => <PostCard userName={post.content} date={post.date} title={post.title} repository_URL={post.repository_URL} image_url1={post.image_url1} />)}</div>
     </div>
   );
 }

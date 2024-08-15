@@ -1,5 +1,6 @@
-import{ useState , useEffect } from "react";
+import{ useState , useEffect, createContext, useContext } from "react";
 import { supabase } from "../supabaseClient";
+
 
 /*タイトル、内容の各値を状態管理するための記述*/
 export default function Top() {
@@ -50,8 +51,7 @@ const addPost = async (e) => {
             }
    
 }
-  
-      
+
    /*  フロントエンドでの例
 　 ・一覧機能
 return(
