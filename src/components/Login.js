@@ -19,16 +19,15 @@ function Login() {
     return (
     
       <div className="login" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <h1 className="titlename">Product キャッチ</h1>
+        <h2 className="titlename">Product キャッチ</h2>
          {/* 画像を追加 */}
         <img src={logoImage} alt="ロゴ" style={{ width: '200px', height: 'auto', margin: '20px 0' }} />
         
         <Stack spacing={5} direction="column">
           <Button variant="contained" size="large" onClick={() => handleClick('Home')} style={{ fontSize: '1.2rem', padding: '15px 30px' }}>GitHubで認証</Button>
         </Stack>
-        <h1 className="title">Product キャッチはgithubを使い制作物の共有に特化したエンジニア向けSNSです</h1>
+        <h2 className="title">Product キャッチはgithubを使い制作物の共有に特化したエンジニア向けSNSです</h2>
       </div>
     );
   }
-
 export default Login;

@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import PostCreate from './components/PostCreate';
 import Footer from './components/Footer';
+// import ShareButton from './components/ShareButton'; // インポート文を修正
 
 
 function App() {
