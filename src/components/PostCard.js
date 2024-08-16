@@ -1,15 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PostCard.css';
 import ShareButton from './ShareButton';
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io"; // IoIosHeart をインポート
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { getFullImage, getFullName } from "../ecosystem/storage.ts";
 
-const PostCard = ({ userName, date, title, repository_URL, image_url1 }) => {
+const PostCard = ({ userName, date, title, repository_URL, image_url1, content }) => {
+
+    const [fullName, setFullName] = useState(userName); // 初期値としてuserNameを設定
+    const [imageUrl, setImageUrl] = useState("");
+
+    useEffect(() => {
+        const fetchFullName = async () => {
+            try {
+                const fetchedFullName = await getFullName(userName);
+                const fetchedImage = await getFullImage(userName);
+                setFullName(fetchedFullName); // フェッチしたフルネームをセット
+                setImageUrl(fetchedImage);
+            } catch (error) {
+                console.error('Failed to fetch full name:', error);
+            }
+        };
+
+        fetchFullName(); // 非同期関数を呼び出し
+
+    }, [userName]); // userNameが変わった場合に再度フルネームを取得
 
     const extension = image_url1?.split('.').pop();
 
+    // const fullName = await getFullName(userName);
+    // console.log("fullname",fullName);
 
-    console.log(image_url1);
     const [liked, setLiked] = useState(false); // liked状態を管理
 
     const toggleLike = () => {
@@ -19,9 +40,9 @@ const PostCard = ({ userName, date, title, repository_URL, image_url1 }) => {
     return (
         <div className="post-card">
             <div className="post-header">
-                <div className="user-icon"></div>
+                <img className="user-icon" src={`${imageUrl}`} />
                 <div className="user-info">
-                    <div className="user-name">{userName}</div>
+                    <div className="user-name">{fullName}</div>
                     <div className="post-date">{date}</div>
                 </div>
             </div>
@@ -38,7 +59,7 @@ const PostCard = ({ userName, date, title, repository_URL, image_url1 }) => {
                 )}
             </div>
             <div className="post-content">
-                投稿内容
+                {content}
             </div>
             <div className="actions" style={{ display: 'flex', alignItems: 'center' }}>
                 <ShareButton size={32} round />
@@ -49,7 +70,6 @@ const PostCard = ({ userName, date, title, repository_URL, image_url1 }) => {
                         <IoIosHeartEmpty size={32} style={{ color: 'gray' }} /> // それ以外はグレーのハート
                     )}
                 </div>
-                <h4>1</h4>
                 <div className="input-field" style={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
                     <GitHubIcon style={{ fontSize: 30 }} />
                     {repository_URL}
