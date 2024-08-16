@@ -47,7 +47,7 @@ const PostCard = ({ userName, date, title, repository_URL, image_url1, content }
                 </div>
             </div>
             <div>
-                {title}
+                <h3>{title}</h3>
             </div>
             <div>
                 {/* If extension is an image format, display the image, otherwise indicate it's a video */}
@@ -70,9 +70,13 @@ const PostCard = ({ userName, date, title, repository_URL, image_url1, content }
                         <IoIosHeartEmpty size={32} style={{ color: 'gray' }} /> // それ以外はグレーのハート
                     )}
                 </div>
-                <div className="input-field" style={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
+                <div className="input-field" style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', width: '280px', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
                     <GitHubIcon style={{ fontSize: 30 }} />
-                    {repository_URL}
+                <span style={{ flexGrow: 1, whiteSpace: 'normal' ,width:'90%' }}>
+                    <a  href={repository_URL} style={{ color: 'blue', textDecoration: 'none', fontWeight: 'bold' }}>
+                        {repository_URL}
+                    </a>
+                </span>
                 </div>
             </div>
         </div>
