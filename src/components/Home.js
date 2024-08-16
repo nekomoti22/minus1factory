@@ -6,15 +6,19 @@ import SearchIcon from "@mui/icons-material/Search";
 import PostCard from "./PostCard";
 import { posts } from "../test.ts";
 import { fetchPosts } from "../ecosystem/postcontentTohome.ts"
+import { getFullName } from "../ecosystem/storage.ts";
+
 
 function Home() {
   const [value, setValue] = React.useState("one");
   const [fechedPosts, setFechedPosts] = useState([]);
+  console.log(fechedPosts);
 
   const handleChange = (newValue) => {
     setValue(newValue);
   };
 
+  let postData = []
   useEffect(() => {
     const fetchData = async () => {
       const fetchedData = await fetchPosts(); // fetchPosts() をawaitで呼び出し
@@ -23,6 +27,18 @@ function Home() {
     };
 
     fetchData(); // 非同期関数を呼び出し
+    // fechedPosts.forEach(element => {
+    //   let fullName = 'eeet'
+    //   const fetchFullName = async () => {
+    //     const fetchedFullName = await getFullName('9b23de72-8e00-4cb8-88f1-09a3d828e5c0')
+    //     fullName = fetchedFullName
+    //   }
+    //   fetchFullName()
+    //   console.log(fullName)
+    //   console.log(element.user_id)
+    //   console.log(postData)
+    //   postData.push({full_name: fullName, date: element.date, title:element.title, repository_URL:element.repository_URL, image_url1:element.image_url1 })
+    // });
   }, []);
 
   return (
@@ -54,9 +70,9 @@ function Home() {
         />
       </div>
       {/* 複数並ぶ */}
-      <div style={{ paddingBottom: 50 }}> {fechedPosts.map((post) => <PostCard userName={post.user_id} date={post.date} title={post.title} repository_URL={post.repository_URL} image_url1={post.image_url1} />)}</div>
+      <div style={{ paddingBottom: 50 }}> {fechedPosts.map((post) => <PostCard userName={post.user_id} date={post.date} title={post.title} repository_URL={post.repository_URL} image_url1={post.image_url1} content={post.content}/>)}</div>
     </div>
   );
 }
 
-export default Home;
+export default Home;Ï
