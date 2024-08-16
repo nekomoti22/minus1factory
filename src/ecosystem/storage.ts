@@ -1,4 +1,4 @@
-import { supabase } from "../lib/supabase-client.ts";
+import { supabase } from "../lib/supabase-client";
 import { v4 as uuidv4 } from "uuid";
 
 type UploadStorage = {
@@ -38,9 +38,9 @@ export const uploadStorage = async ({
   const file = filelist[0]; // 1ファイルアップロード
   console.log("ファイルが選択された");
   const extension = file.name.split('.').pop();
-  console.log("extention",extension);
-  
-  
+  console.log("extention", extension);
+
+
 
   const pathName = `characters/${uuidv4()}.${extension}`; // パス名の設定
   console.log("パスの作成ができた");
@@ -50,7 +50,7 @@ export const uploadStorage = async ({
       cacheControl: "3600",
       upsert: false,
     });
-  console.log("アップロードができた",data?.path);
+  console.log("アップロードができた", data?.path);
   if (error) throw error;
   return {
     path: data?.path ?? null,
@@ -60,7 +60,7 @@ export const uploadStorage = async ({
 
 
 
-export const addData = async ({ user_id, content, title, date, repository_URL, image_url1, image_url2, image_url3, image_url4, posttype, like_id }:post): Promise<void> => {
+export const addData = async ({ user_id, content, title, date, repository_URL, image_url1, image_url2, image_url3, image_url4, posttype, like_id }: post): Promise<void> => {
 
   // console.log(user_id, content, title, date, repository_URL, image_url1, image_url2, image_url3, image_url4, posttype, like_id);
 
@@ -112,11 +112,16 @@ export async function getuserId(): Promise<string | null> {
 export async function getFullName(userId: string): Promise<string | null> {
   try {
     // 非同期処理を実行
+    console.log("=====")
+    console.log(userId)
     const { data, error } = await supabase
       .from('users')
-      .select('full_name') //usersのfull_nameを取得
-      .eq('id', userId) //idの中からuserIdを比較して一致する時
-      .single(); // 単一のレコードを取得する
+      .select('full_name')
+      .eq('id', userId)
+      .maybeSingle();
+
+    console.log(await data);
+
 
     // エラーチェック
     if (error) {
@@ -132,3 +137,34 @@ export async function getFullName(userId: string): Promise<string | null> {
     return null;
   }
 }
+
+export async function getFullImage(userId: string): Promise<string | null> {
+  try {
+    // 非同期処理を実行
+    console.log("=====")
+    console.log(userId)
+    const { data, error } = await supabase
+      .from('users')
+      .select('avatar_url')
+      .eq('id', userId)
+      .maybeSingle();
+
+    console.log(await data);
+
+
+    // エラーチェック
+    if (error) {
+      console.error('Error fetching user:', error);
+      return null;
+    }
+
+    // データが存在する場合に full_name を返す
+    return data?.avatar_url || null;
+  } catch (err) {
+    // 予期しないエラー処理
+    console.error('Unexpected error:', err);
+    return null;
+  }
+}
+
+
