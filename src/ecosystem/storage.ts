@@ -1,6 +1,8 @@
-import { supabase } from "../lib/supabase-client";
 import { v4 as uuidv4 } from "uuid";
+import supabase from './supabaseClient';
 
+
+export default supabase;
 type UploadStorage = {
   filelist: FileList;
   bucketName: string;
@@ -168,3 +170,22 @@ export async function getFullImage(userId: string): Promise<string | null> {
 }
 
 
+
+// インポート時に中括弧 {fetchUsersByPostType} にして、エクスポートした名前と一致させる必要がある。
+export const fetchPostType = async (postType: '制作物' | '仲間募集' | 'イベント') => {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('posttype', postType);
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return [];
+  }
+};
