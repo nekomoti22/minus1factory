@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PostCard.css";
 import ShareButton from "./ShareButton";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io"; // IoIosHeart をインポート
