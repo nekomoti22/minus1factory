@@ -6,7 +6,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 const PostCard = ({ userName, date, title, repository_URL, image_url1 }) => {
 
-    const extension = image_url1.split('.').pop();
+    const extension = image_url1?.split('.').pop();
 
 
     console.log(image_url1);
