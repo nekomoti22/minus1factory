@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import './PostCard.css';
-import ShareButton from './ShareButton';
+import React, { useState, useEffect } from "react";
+import "./PostCard.css";
+import ShareButton from "./ShareButton";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io"; // IoIosHeart をインポート
+
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { getFullImage, getFullName } from "../ecosystem/storage.ts";
 
@@ -72,15 +73,15 @@ const PostCard = ({ userName, date, title, repository_URL, image_url1, content }
                 </div>
                 <div className="input-field" style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', width: '280px', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
                     <GitHubIcon style={{ fontSize: 30 }} />
-                <span style={{ flexGrow: 1, whiteSpace: 'normal' ,width:'90%' }}>
-                    <a  href={repository_URL} style={{ color: 'blue', textDecoration: 'none', fontWeight: 'bold' }}>
-                        {repository_URL}
-                    </a>
-                </span>
+                    <span style={{ flexGrow: 1, whiteSpace: 'normal', width: '90%' }}>
+                        <a href={repository_URL} style={{ color: 'blue', textDecoration: 'none', fontWeight: 'bold' }}>
+                            {repository_URL}
+                        </a>
+                    </span>
                 </div>
             </div>
         </div>
-    );
+  );
 };
 
 export default PostCard;
