@@ -2,7 +2,7 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import logoImage from "../image/SNSicon.webp";
-import { supabase } from "../lib/supabase-client";
+import { supabase } from "../lib/supabase-client.ts";
 
 function Login() {
   console.log("Login");
