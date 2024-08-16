@@ -24,7 +24,7 @@ const [posts, setPosts] = useState<Post[]>([]);
         
         
     } catch (error) {
-        alert(error.message);
+        // alert(error.message);
         setPosts([]);
     }
     };
@@ -33,7 +33,7 @@ const [posts, setPosts] = useState<Post[]>([]);
 const [newTitle, setNewTitle] = useState("");
 const [newContent, setNewContent] = useState("");
 
-const addPost = async (e) => {
+const addPost = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try{
         const {error} = await supabase.from("posts").insert([
@@ -120,4 +120,4 @@ return(
         </>
       )
       */
-}
+}Ï
