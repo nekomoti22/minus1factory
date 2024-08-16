@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Tabs, Tab, TextField, InputAdornment } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
-import { SnsIcon } from "./SnsIcon";
-import PostCard from "./PostCard";
+import { SnsIcon } from "./SnsIcon.js";
+import PostCard from "./PostCard.js";
 import { posts } from "../test.ts";
 import { fetchPosts } from "../ecosystem/postcontentTohome.ts";
 import { getFullName } from "../ecosystem/storage.ts";
 import { Link } from "react-router-dom";
 
-function Home() {
+function Member() {
   const [value, setValue] = React.useState("one");
   const [fechedPosts, setFechedPosts] = useState([]);
   console.log(fechedPosts);
@@ -55,8 +55,9 @@ function Home() {
           <Tab label="イベント" component={Link} to="/Event" />
         </Tabs>
       </div>
-      <div>ホーム</div>
-      {/* <TextField
+      <div>メンバー</div>
+      {/* <div>
+        <TextField
           fullWidth
           id="fullWidth"
           InputProps={{
@@ -87,4 +88,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Member;

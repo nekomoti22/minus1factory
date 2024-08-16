@@ -6,14 +6,14 @@ import { useAsyncCallback } from "react-async-hook";
 import Box from "@mui/material/Box";
 import CircularIntegration from "./circularintegration.js";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-// import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import { addData } from "../ecosystem/storage.ts";
 import { createClient } from "@supabase/supabase-js";
 
 import { Link } from "react-router-dom";
 
 // import FileUploadUI from './FileUploadUI'; // FileUploadUIをインポート
-import { uploadStorage } from '../ecosystem/storage.ts';
+import { uploadStorage } from "../ecosystem/storage.ts";
 
 const initialState = {
   files: [],
@@ -27,13 +27,13 @@ const supabase = createClient(supabaseUrl, supabasekey);
 function PostCreate() {
   const [userId, setUserId] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
-  // const [selectedCategory, setSelectedCategory] = useState('制作物');
+  const [selectedCategory, setSelectedCategory] = useState("制作物");
   const [postContent, setPostContent] = useState("");
   const [title, setTitle] = useState("");
   const [repository_URL, setRepository_URL] = useState("");
-  // const handleCategoryChange = (event) => {
-  //   setSelectedCategory(event.target.value);
-  // };
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
 
   const inputRef = useRef(null);
   const [setFormState] = useState(initialState);
@@ -115,20 +115,32 @@ function PostCreate() {
     // 投稿データを保存する関数をここで呼び出し
 
     console.log(uploadedFilelist);
-    const path = await uploadStorage({ filelist: uploadedFilelist, bucketName: "pictures" })
-    const url = `https://cdvdeesoyjnugbafkrul.supabase.co/storage/v1/object/public/pictures/${path.path}`
-    addData({ user_id: userId, content: postContent, title: title, date: currentDate, repository_URL: repository_URL, image_url1: url });
-
+    const path = await uploadStorage({
+      filelist: uploadedFilelist,
+      bucketName: "pictures",
+    });
+    const url = `https://cdvdeesoyjnugbafkrul.supabase.co/storage/v1/object/public/pictures/${path.path}`;
+    addData({
+      user_id: userId,
+      content: postContent,
+      title: title,
+      date: currentDate,
+      repository_URL: repository_URL,
+      image_url1: url,
+      posttype: selectedCategory,
+    });
   };
 
   const asyncEvent = useAsyncCallback(onFileInputChange);
 
   const imageUpload = async () => {
     console.log("image upload");
-    const url = await uploadStorage({ filelist: uploadedFilelist, bucketName: "pictures" });
+    const url = await uploadStorage({
+      filelist: uploadedFilelist,
+      bucketName: "pictures",
+    });
     console.log(url);
-  }
-
+  };
 
   return (
     <div>
@@ -152,9 +164,9 @@ function PostCreate() {
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
-              style={{ width: "350px", height: "40px" }}
+              style={{ width: "160px", height: "40px" }}
             />
-            {/* <FormControl variant="outlined" className="user-menu">
+            <FormControl variant="outlined" className="user-menu">
               <InputLabel>選択肢</InputLabel>
               <Select
                 value={selectedCategory}
@@ -165,7 +177,7 @@ function PostCreate() {
                 <MenuItem value="仲間募集">仲間募集</MenuItem>
                 <MenuItem value="イベント">イベント</MenuItem>
               </Select>
-            </FormControl> */}
+            </FormControl>
           </div>
           <textarea
             className="post-textarea"
@@ -252,8 +264,7 @@ function PostCreate() {
           </div>
         </div>
       </div>
-      <div>※写真は4枚まで、動画は50MBまで投稿できます。
-      </div>
+      <div>※写真は1枚まで、動画は50MBまで投稿できます。</div>
       <Link to="/home">
         <button className="post-button" onClick={upload}>
           投　稿
